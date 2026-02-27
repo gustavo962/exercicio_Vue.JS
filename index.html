@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Vue</title>
+
+  <!-- Vue CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="app">
+    <h1>Calculadora Aritmética</h1>
+
+    <input type="number" v-model.number="numero1">
+
+    <select v-model="operacao">
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+    </select>
+
+    <input type="number" v-model.number="numero2">
+
+    <h2>Resultado: {{ resultado }}</h2>
+  </div>
+
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+          numero1: 0,
+          numero2: 0,
+          operacao: "+"
+        }
+      },
+      computed: {
+        resultado() {
+          switch (this.operacao) {
+            case "+": return this.numero1 + this.numero2
+            case "-": return this.numero1 - this.numero2
+            case "*": return this.numero1 * this.numero2
+            case "/":
+              return this.numero2 !== 0
+                ? this.numero1 / this.numero2
+                : "Erro"
+          }
+        }
+      }
+    }).mount("#app")
+  </script>
+
+</body>
+</html>
